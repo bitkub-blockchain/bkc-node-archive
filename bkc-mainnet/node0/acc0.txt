@@ -1,0 +1,2 @@
+Public address: b4a2774135d80fe41e6490f5c5139692f4d03e20
+Secret key path: /root/bkc-node/bkc-mainnet/node0/keystore/UTC--2021-04-28T12-34-23.020717668Z--b4a2774135d80fe41e6490f5c5139692f4d03e20
