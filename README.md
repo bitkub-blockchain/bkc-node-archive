@@ -1,1 +1,1 @@
-# bkc-node
+# Bitkub Chain Node
