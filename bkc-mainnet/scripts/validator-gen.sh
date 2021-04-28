@@ -220,7 +220,7 @@ echo -e "\nGetting external IP address..\n"
 #exip=$(curl ifconfig.me)
 #sed -e 's/\bEXIP\b/'"$exip"'/'
 #sed -e 's/\bDIR\b/'"$path/$node/"'/' -e 's/\bADDR\b/'"$addr"'/' -e 's/\bpassword.txt\b/'"$path/"'password.sec/' startnode.sh > $path/$node/start$node.sh # Need startnode to have addr as account to be unlock
-sed -e 's@\bDIR\b@'"$path/$node"'@' -e  's@\bADDR\b@'"$addr"'@' -e 's@\bpassword.txt\b@'"$path/"'password.sec@'  startnode.sh > $path/$node/start$node.sh
+sed -e 's@\bDIR\b@'"$path/$node"'@' -e  's@\bADDR\b@'"$addr"'@' -e 's@\bpassword.txt\b@'"$path/$node"'password.sec@'  startnode.sh > $path/$node/start$node.sh
 
 cat $node/start$node.sh
 echo -e "\nstart$node.sh is generated under $path/$node/ \n"
