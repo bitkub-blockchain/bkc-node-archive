@@ -105,7 +105,7 @@ fi
 
 while [[ "$pass" != "$pass2" ]]
 do
-  if [ ! -z "ans" ]
+  if [ ! -z "$ans" ]
   then
     ans0="not_null"
   else
