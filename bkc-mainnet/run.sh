@@ -90,6 +90,6 @@ echo -e ">> running geth-service.sh"
 cp scripts/geth-service.sh ./geth-service.sh
 ./geth-service.sh
 rm -rf geth-service.sh
-echo -e "RUN THIS $version finished."
+echo -e "\nRUN THIS $version finished."
 rm -rf genesis.json
 
