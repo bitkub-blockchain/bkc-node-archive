@@ -26,7 +26,7 @@ mv ./geth.temp /etc/systemd/system/geth.service
 sudo systemctl daemon-reload
 sudo systemctl enable geth.service
 sudo systemctl start geth.service
-echo " >> Checking geth.service..."
+echo ">> checking geth.service..."
 sleep 3
 systemctl status geth.service > service.temp
 cat service.temp
