@@ -43,6 +43,19 @@ function reject.count.up {
  rejcount=$((rejcount+1))
 }
 
+function check.ifExist {
+  CHECK_FILE=$(ls -1 | find "$1")
+  if [ -z "$CHECK_FILE" ]
+  then
+    echo -e "\n[${RED} !!!'$1' not detected, please try again later.!!!${NC} ]  \n"  #<--------genesis.json error message
+    rm -rf output && rm -rf $node
+    wait
+    exit
+  else
+    echo -e "[${GRE} '$1' detected.${NC} ]  \n"
+  fi
+}
+
 #
 # Variables.
 #
@@ -61,15 +74,21 @@ ans="";
 pvk="";
 rejcount=0;
 maxtries=2;
+
+# Trap
+trap "rm -rf output" EXIT
+
 #
 # Body of the script.
 #
 
+echo -e "\n>> Checking for prerequisite files\n"
+check.ifExist genesis.json
+check.ifExist startnode.sh
 echo "+---------------------------------+"
 echo "|  validator-gen.sh started.      |"
 echo "+---------------------------------+"
 echo -e "\n>> Making node directory..\n"
-
 num0=$(file * | grep directory | grep node | wc -l)
 node="node$num0"
 path=$(pwd)
@@ -80,7 +99,7 @@ echo -e "\n>> Creating account..\n"
 
 echo "Do you wish to import account? (leave blank for \"no\")"
 read import
-if [ ! -z "$import" ]
+if [ ! -z "$import" ] && [ "$import" != 'no' ]
   then
   while [[ -z "$pvk" ]]
   do
@@ -94,6 +113,8 @@ if [ ! -z "$import" ]
   fi
   done
 fi
+echo ""
+
 #
 # Passwords section.
 # ------------------
@@ -109,10 +130,10 @@ do
   then
     ans0="not_null"
   else
-  echo "Do you wish specify password? (leave blank for \"no\")"
-  read ans0
+    echo "Do you wish specify password? (leave blank for \"no\")"
+    read ans0
   fi
-  if [ -z "$ans0" ]
+  if [ -z "$ans0" ] || [ "$ans0" == 'no' ]
     then
     base64 -w 0 /dev/urandom | head -c 25 > $node/password.sec
     echo "Random password generated. ( $path/$node/password.sec )"
@@ -123,7 +144,7 @@ do
     read -t 3000 -s -p "> Re-enter your password: " pass2
     if [ ! "$pass" = "$pass2" ]
     then
-      echo -e "\n\n//////_ERROR_PASSWORD_MISMATCH!!!_//////\n"
+      echo -e "\n\n[${RED} _ERROR_PASSWORD_MISMATCH!!!_ ${NC}] ($rejcount/$maxtries)\n"
     else
       echo "$pass" > $node/password.sec
       echo -e "\nPassword file generated. ( $path/$node/password.sec )"
@@ -133,6 +154,8 @@ do
   if [ "$rejcount" -gt "$maxtries" ]
   then
     echo -e "[ Maximum retries exceeded. Please try again. ]"
+    wait
+    read -p "Press any key to exit"
     exit
   fi
 done
@@ -144,7 +167,7 @@ done
 # file that is properly configured.
 #
 
-if [ ! -z "$import" ]
+if [ ! -z "$import" ] && [ "$import" != 'no' ]
 then
   echo -e "\n>> Importing account..\n"
   mkdir output
@@ -185,22 +208,14 @@ fi
 #
 
 echo -e "\n>> Initialize $node with genesis file.."
-gene=$(ls -1 | find genesis.json)
-if [ -z "$gene" ]
-  then
-  echo -e "\n[${RED} !!!'genesis.json' not detected, please try again later.!!!${NC} ]  \n"  #<--------genesis.json error message
-  rm -rf output && rm -rf $node
-  wait
-  exit
-fi
 dotsleep 3
 geth --datadir $node init genesis.json
 echo -e "\n[$node is initialized.]\n"
 
 #
-# Generating startnode script here. (need 'startnode' file)
+# Generating startnode script here. (need 'startnode.sh' file)
 # ---------------------------------------------------------
-# Function the same as Geth init section. Once 'startnode' file is
+# Function the same as Geth init section. Once 'startnode.sh' file is
 # found, performed copy content into $node directory. Once done then
 # proceed to replace the preset variable inside with this node vari-
 # able. (To be more precise it's the address of newly created account)
@@ -208,13 +223,6 @@ echo -e "\n[$node is initialized.]\n"
 
 echo -e "\nGenerating $node startnode.."
 gene=$(ls -1 | find startnode.sh)
-if [ -z "$gene" ]
-  then
-  echo -e "\n[${RED} !!!'startnode.sh' not detected, please try again later.!!!${NC} ]  \n"  #<--------startnode.sh error message
-  rm -rf output && rm -rf $node
-  wait
-  exit
-fi
 dotsleep 3
 echo -e "\nGetting external IP address..\n"
 #exip=$(curl ifconfig.me)

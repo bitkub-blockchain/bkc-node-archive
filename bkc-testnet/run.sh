@@ -3,9 +3,10 @@
 # Description : This is a main script to run multiple smaller scripts to create running geth node
 #
 # v.0.0.2 includes geth-service scripts + node-check function
+# v.0.0.3 fixs validator-gen.sh if else condition statements, added check.ifExist function, change name to RUN THIS NODE, use trap, and reorganized run.sh
 
 clear
-version="v.0.0.2"
+version="v.0.0.3"
 
 #
 # Color section.
@@ -21,6 +22,12 @@ DGRE='\033[0;32m'
 
 # Function
 
+function exargs {
+    clear
+    echo -e "\n[ RUN THIS NODE $version exited ]\n"
+    rm -rfv genesis.json geth-tmp.sh va-gen.sh startnode.sh
+}
+
 function dotsleep () {
   for ((i=1;i<="$1";i++))
   do
@@ -33,9 +40,8 @@ function checkit {
   check=$(ls -1 | find node0)
   if [ ! -z "$check" ]
     then
-    echo -e "\n[${RED} 'node0' dectected. ${NC}]  \n"
-    echo -e "Program exited."
-    wait
+    echo -e "\n[${RED} 'node0' detected. ${NC}]  \n"
+    read
     exit
   fi
 }
@@ -48,10 +54,16 @@ function ethis2 {
 }
 
 #
+# Trap
+#
+
+trap exargs EXIT
+
+#
 # Bitkub Logo
 #
 
-
+ethis "presented by,"
 ethis ""
 ethis "  ____________       _______     ____________    ___         ____   ___       ___    ____________     "
 ethis "  BBBBBBBBBBBBb.    dBBBBBBD    dBBBBBBBBBBBBb   KKKb       dBBP    UUU       UUU    BBBBBBBBBBBBb.   "
@@ -71,25 +83,33 @@ sleep 1
 clear
 
 
-# Main
-checkit
-cp  bitkubchain.json genesis.json
-echo -e "RUN THIS $version\n"
-echo -e ">> running node-check" # Verifying existing node
-echo -e ">> running geth-install.sh" # Verifying geth installation process
-cp scripts/geth-install.sh ./geth-tmp.sh
-./geth-tmp.sh
-rm -rf geth-tmp.sh
 
-echo -e ">> running validator-gen.sh"
+# preparing files
+cp bitkubchain.json genesis.json
+cp scripts/geth-install.sh ./geth-tmp.sh
 cp scripts/validator-gen.sh ./va-gen.sh # Generate node
 cp scripts/startnode.sh ./startnode.sh
+
+# Installing geth
+echo -e "RUN THIS NODE $version\n"
+echo -e ">> running node-check" # Verifying existing node
+checkit
+echo -e ">> running geth-install.sh" # Verifying geth installation process
+./geth-tmp.sh
+
+echo -e ">> running validator-gen.sh"
 ./va-gen.sh
-rm -rf va-gen.sh startnode.sh
-echo -e ">> running geth-service.sh"
-cp scripts/geth-service.sh ./geth-service.sh
-./geth-service.sh
-rm -rf geth-service.sh
-echo -e "\nRUN THIS $version finished."
-rm -rf genesis.json
+
+
+# Run as service section (Comment all to disable service)
+#echo -e ">> running geth-service.sh"
+#cp scripts/geth-service.sh ./geth-service.sh
+#./geth-service.sh
+#rm -rf geth-service.sh
+
+# End credit
+echo -e "\nRUN THIS NODE $version finished."
+
+# Clearing cache
+rm -rf genesis.json geth-tmp.sh va-gen.sh startnode.sh
 
