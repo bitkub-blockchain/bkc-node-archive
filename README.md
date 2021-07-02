@@ -46,15 +46,21 @@ cd full-node
 # Go to validator-node directory to run Bitkub Chain validator node (need authorization)
 cd validator-node 
 ```
+
 ## Starting Node Guide
+
 ### Running full-node
+
 #### Simply execute the `run.sh` file to initialized current directory and start geth
+
  ```shell
 ./run.sh
 ```
 
 ### Running validator-node
+
 #### 1) run `init.sh` to initialized current directory and complete account generation guide
+
  ```shell
 ./init.sh
 ```
