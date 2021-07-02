@@ -20,7 +20,7 @@
 ## Installation Guide
 #### 1. Clone Bitkub Chain Node github repo to your instance 
 ```shell
-git clone https://github.com/bitkubchain/bkc-node
+git clone https://github.com/bitkubchain/bkc-node -b node-script
 ```
 #### 2. Switch to bkc-node/ directory
 ```shell
@@ -38,11 +38,29 @@ cd mainnet
 # Go to testnet directory if you need to run a Bitkub Chain testnet node
 cd testnet 
 ```
- #### 5. Initialized a geth folder using a `genesis.json` file
+#### 5. Choose between full-node or validator-node
  ```shell
-geth init --datadir ${YOUR DIRECTORY} genesis.json 
+# Go to full-node directory to run Bitkub Chain full node
+cd full-node
+
+# Go to validator-node directory to run Bitkub Chain validator node (need authorization)
+cd validator-node 
 ```
- #### 6. Run a node using a `config.toml` file 
+
+### Running full-node
+#### Simply execute the 'run.sh' file to initialized current directory and start geth
  ```shell
-geth --config config.toml --datadir ${YOUR DIRECTORY}
+./run.sh
+```
+
+### Running validator-node
+#### 1) run 'init.sh' to initialized current directory and complete account generation guide
+ ```shell
+./init.sh
+```
+
+#### 2) execute now generated 'start.sh' to run geth. (You can check your current account used in 'start.sh', or the generated account in 'acc.txt'.)
+
+ ```shell
+./start.sh
 ```
