@@ -65,7 +65,7 @@ cd validator-node
 ./init.sh
 ```
 
-#### 2) execute now generated `start.sh` to start geth (You can check your current account used in 'start.sh', or the generated account in 'acc.txt'.)
+#### 2) execute now generated `start.sh` to start geth (You can check your current account used in `start.sh`, or the generated account in `acc.txt`.)
 
  ```shell
 ./start.sh
