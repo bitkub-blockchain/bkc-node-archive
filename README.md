@@ -38,7 +38,7 @@ cd mainnet
 # Go to testnet directory if you need to run a Bitkub Chain testnet node
 cd testnet 
 ```
-#### 5. Choose between full-node or validator-node
+#### 5. Choose between `Full node` or `Validator node`
  ```shell
 # Go to full-node directory to run Bitkub Chain full node
 cd full-node
