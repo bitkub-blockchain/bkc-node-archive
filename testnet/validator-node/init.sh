@@ -23,7 +23,7 @@ DGRE='\033[0;32m'
 # Function
 
 function exargs {
-    clear
+#    clear
     echo -e "\n[ RUN THIS NODE $version exited ]\n"
     rm -rfv geth-tmp.sh va-gen.sh startnode.sh
 }
@@ -41,7 +41,7 @@ function checkit {
   if [ ! -z "$check" ]
     then
     echo -e "\n[${RED} 'node0' detected. ${NC}]  \n"
-    read
+#    read
     exit
   fi
 }
@@ -51,7 +51,7 @@ function check-geth {
   if [ -z "$check" ]
     then
     echo -e "\n[${RED} 'geth' is not installed. (Please run install.sh) ${NC}]  \n"
-    read
+#    read
     exit
   fi
 }
@@ -86,8 +86,8 @@ ethis2 "  BBBBBBBBBBBBBP'   dBBBBBBP          BB         KKK|       VBDb     'UU
 ethis ""
 echo -n " "
 sleep 1
-echo -e -n "${GRE}[ Press any key to continue... ]${NOR}"
-read -n 1 -s
+#echo -e -n "${GRE}[ Press any key to continue... ]${NOR}"
+#read -n 1 -s
 echo ""
 sleep 1
 clear

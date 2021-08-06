@@ -78,7 +78,7 @@ rej_count=0;
 max_tries=2;
 
 # Trap
-trap "rm -rfv output; read" EXIT
+trap "rm -rfv output" EXIT
 
 #
 # Body of the script.
@@ -100,23 +100,23 @@ path=$(pwd)
 echo "$node directory is under $path."
 echo -e "\n>> Creating account..\n"
 
-echo "Do you wish to import account? (leave blank for \"no\")"
-read import
-if [ ! -z "$import" ] && [ "$import" != 'no' ]
-  then
-  while [[ -z "$pvk" ]]
-  do
-  ANS="not_null"
-  read -p "> Enter your private key : " pvk
-  reject.count.up
-  if [ "$rej_count" -gt "$max_tries" ]
-    then
-    echo -e "[ Maximum retries exceeded. Please try again. ]"
-    exit
-  fi
-  done
-fi
-echo ""
+#echo "Do you wish to import account? (leave blank for \"no\")"
+#read import
+#if [ ! -z "$import" ] && [ "$import" != 'no' ]
+#  then
+#  while [[ -z "$pvk" ]]
+#  do
+#  ANS="not_null"
+#  read -p "> Enter your private key : " pvk
+#  reject.count.up
+#  if [ "$rej_count" -gt "$max_tries" ]
+#    then
+#    echo -e "[ Maximum retries exceeded. Please try again. ]"
+#    exit
+#  fi
+#  done
+#fi
+#echo ""
 
 #
 # Passwords section.
@@ -127,41 +127,41 @@ echo ""
 # or manually configured. Once done the password will be saved in node directory.
 #
 
-while [[ "$pass" != "$pass2" ]]
-do
-  if [ ! -z "$ans" ]
-  then
-    ans0="not_null"
-  else
-    echo "Do you wish specify password? (leave blank for \"no\")"
-    read ans0
-  fi
-  if [ -z "$ans0" ] || [ "$ans0" == 'no' ]
-    then
-    base64 -w 0 /dev/urandom | head -c 25 > $path/password.sec
-    echo "Random password generated. ( $path/password.sec )"
-    pass2="one"
-  else
-    read -t 3000 -s -p "> Enter your password: " pass
-    echo -n -e "\n"
-    read -t 3000 -s -p "> Re-enter your password: " pass2
-    if [ ! "$pass" = "$pass2" ]
-    then
-      echo -e "\n\n[${RED} _ERROR_PASSWORD_MISMATCH!!!_ ${NC}] ($rej_count/$max_tries)\n"
-    else
-      echo "$pass" > $path/password.sec
-      echo -e "\nPassword file generated. ( $path/password.sec )"
-    fi
-  fi
-  reject.count.up
-  if [ "$rej_count" -gt "$max_tries" ]
-  then
-    echo -e "[ Maximum retries exceeded. Please try again. ]"
-    wait
-    read -p "Press any key to exit"
-    exit
-  fi
-done
+#while [[ "$pass" != "$pass2" ]]
+#do
+#  if [ ! -z "$ans" ]
+#  then
+#    ans0="not_null"
+#  else
+#    echo "Do you wish specify password? (leave blank for \"no\")"
+#    read ans0
+#  fi
+#  if [ -z "$ans0" ] || [ "$ans0" == 'no' ]
+#    then
+base64 -w 0 /dev/urandom | head -c 25 > $path/password.sec
+echo "Random password generated. ( $path/password.sec )"
+#pass2="one"
+#  else
+#    read -t 3000 -s -p "> Enter your password: " pass
+#    echo -n -e "\n"
+#    read -t 3000 -s -p "> Re-enter your password: " pass2
+#    if [ ! "$pass" = "$pass2" ]
+#    then
+#      echo -e "\n\n[${RED} _ERROR_PASSWORD_MISMATCH!!!_ ${NC}] ($rej_count/$max_tries)\n"
+#    else
+#      echo "$pass" > $path/password.sec
+#      echo -e "\nPassword file generated. ( $path/password.sec )"
+#    fi
+#  fi
+#  reject.count.up
+#  if [ "$rej_count" -gt "$max_tries" ]
+#  then
+#    echo -e "[ Maximum retries exceeded. Please try again. ]"
+#    wait
+#    read -p "Press any key to exit"
+#    exit
+#  fi
+#done
 #
 # Generating default account here.
 # --------------------------------
@@ -170,37 +170,37 @@ done
 # file that is properly configured.
 #
 
-if [ ! -z "$import" ] && [ "$import" != 'no' ]
-then
-  echo -e "\n>> Importing account..\n"
-  mkdir output
-  echo "$pvk" > output/pvk.tmp
-  geth --datadir $path account import output/pvk.tmp --password $path/password.sec > output/$node.output
-  dotsleep 3
+#if [ ! -z "$import" ] && [ "$import" != 'no' ]
+#then
+#  echo -e "\n>> Importing account..\n"
+#  mkdir output
+#  echo "$pvk" > output/pvk.tmp
+#  geth --datadir $path account import output/pvk.tmp --password $path/password.sec > output/$node.output
+#  dotsleep 3
 
-  addr=$(cat output/$node.output | awk '{print $2}')
-  addr=${addr:1}
-  addr=${addr%?}
-  echo "Address is : $ADDR"
-  path=$(pwd)
-  skf=$(ls $path/keystore/)
-  echo -e "Public address: $addr \nSecret key path: $path/keystore/$skf" > $path/acc.txt
-  echo -e "\n\n[$path/acc.txt created.]"
-  echo -e "\nPublic address: $addr\nSecret key path: $skf\n"
-else
-  echo -e "\n>> Generating account..\n"
-  mkdir output
-  geth --datadir $path account new --password $path/password.sec > $path/output/$node.output
-  cat $path/output/$node.output
+#  addr=$(cat output/$node.output | awk '{print $2}')
+#  addr=${addr:1}
+#  addr=${addr%?}
+#  echo "Address is : $ADDR"
+#  path=$(pwd)
+#  skf=$(ls $path/keystore/)
+#  echo -e "Public address: $addr \nSecret key path: $path/keystore/$skf" > $path/acc.txt
+#  echo -e "\n\n[$path/acc.txt created.]"
+#  echo -e "\nPublic address: $addr\nSecret key path: $skf\n"
+#else
+echo -e "\n>> Generating account..\n"
+mkdir output
+geth --datadir $path account new --password $path/password.sec > $path/output/$node.output
+cat $path/output/$node.output
 
-  dotsleep 3
+dotsleep 3
 
-  addr=$(grep Public output/$node.output | awk '{print $6}')
-  skf=$(grep Path output/$node.output | awk '{print $7}')
-  echo -e "Public address: $addr\nSecret key path: $skf" > $path/acc.txt
-  echo -e "\n\n[$path/acc.txt created.]"
-  echo -e "\nPublic address: $addr\nSecret key path: $skf\n"
-fi
+addr=$(grep Public output/$node.output | awk '{print $6}')
+skf=$(grep Path output/$node.output | awk '{print $7}')
+echo -e "Public address: $addr\nSecret key path: $skf" > $path/acc.txt
+echo -e "\n\n[$path/acc.txt created.]"
+echo -e "\nPublic address: $addr\nSecret key path: $skf\n"
+#fi
 
 #
 # Geth init here. (need 'genesis.json')
@@ -229,7 +229,7 @@ echo -e "\n[$node is initialized.]\n"
 echo -e "\nGenerating $node start script.."
 gene=$(ls -1 | find startnode.sh)
 dotsleep 3
-echo -e "\nGetting external IP address..\n"
+#echo -e "\nGetting external IP address..\n"
 #exip=$(curl ifconfig.me)
 #sed -e 's/\bEXIP\b/'"$exip"'/'
 #sed -e 's/\bDIR\b/'"$path/$node/"'/' -e 's/\bADDR\b/'"$addr"'/' -e 's/\bpassword.txt\b/'"$path/"'password.sec/' startnode.sh > $path/$node/start$node.sh # Need startnode to have addr as account to be unlock
