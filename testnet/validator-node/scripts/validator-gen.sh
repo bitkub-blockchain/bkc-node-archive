@@ -233,7 +233,7 @@ dotsleep 3
 #exip=$(curl ifconfig.me)
 #sed -e 's/\bEXIP\b/'"$exip"'/'
 #sed -e 's/\bDIR\b/'"$path/$node/"'/' -e 's/\bADDR\b/'"$addr"'/' -e 's/\bpassword.txt\b/'"$path/"'password.sec/' startnode.sh > $path/$node/start$node.sh # Need startnode to have addr as account to be unlock
-sed -e 's@\bDIR\b@'"$path"'@' -e  's@\bADDR\b@'"$addr"'@' -e 's@\bpassword.txt\b@'"$path/"'password.sec@'  startnode.sh > $path/start.sh
+sed -e 's@\bDIR\b@'"$path"'@' -e  's@\bADDR\b@'"$addr"'@' -e 's@\bpassword.txt\b@'"$path/"'password.sec@' -e 's@\bconfig.toml\b@'"$path/"'config.toml@'  startnode.sh > $path/start.sh
 
 cat $path/start.sh
 echo -e "\nstart.sh is generated under $path \n"
