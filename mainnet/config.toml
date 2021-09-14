@@ -21,9 +21,9 @@ RPCGasCap = 25000000
 RPCTxFeeCap = 1e+01
 
 [Eth.Miner]
-GasFloor = 30000000
-GasCeil = 30000000
-GasPrice = 50000000000
+GasFloor = 60000000
+GasCeil = 60000000
+GasPrice = 5000000000
 Recommit = 3000000000
 Noverify = false
 
@@ -46,9 +46,9 @@ Rejournal = 3600000000000
 PriceLimit = 50000000000
 PriceBump = 10
 AccountSlots = 16
-GlobalSlots = 4096
+GlobalSlots = 10000
 AccountQueue = 64
-GlobalQueue = 1024
+GlobalQueue = 5000
 Lifetime = 10800000000000
 
 [Eth.GPO]
@@ -57,7 +57,7 @@ Percentile = 60
 MaxPrice = 500000000000
 
 [Node]
-DataDir = "/root/bkc-node/mainnet"
+DataDir = "/root/bkc-node"
 IPCPath = "geth.ipc"
 HTTPHost = "0.0.0.0"
 HTTPPort = 8545

@@ -21,9 +21,9 @@ RPCGasCap = 25000000
 RPCTxFeeCap = 1e+01
 
 [Eth.Miner]
-GasFloor = 30000000
-GasCeil = 30000000
-GasPrice = 50000000000
+GasFloor = 120000000
+GasCeil = 120000000
+GasPrice = 5000000000
 Recommit = 3000000000
 Noverify = false
 
@@ -46,9 +46,9 @@ Rejournal = 3600000000000
 PriceLimit = 50000000000
 PriceBump = 10
 AccountSlots = 16
-GlobalSlots = 4096
+GlobalSlots = 10000
 AccountQueue = 64
-GlobalQueue = 1024
+GlobalQueue = 5000
 Lifetime = 10800000000000
 
 [Eth.GPO]
@@ -73,11 +73,11 @@ GraphQLVirtualHosts = ["localhost"]
 [Node.P2P]
 MaxPeers = 50
 NoDiscovery = false
-BootstrapNodes = ["enode://d0a75f2f1abe31027b7ab7e1816b26835a60e1d1fe253d9390b7b11359940fb886b0859a35f7b13ba5e7c9ae84514cabc8e7c25ea4a272d572fad00e673b0dac@167.179.66.19:30303", "enode://f138ad16b1e0ea777264bda943039ac8afdb328934887ed690844281c9104f39c4f4ef937c68003fb7a71ca570529b35a34adde9ad31c74629e6272e0b994360@47.74.67.68:32343"]
-BootstrapNodesV5 = ["enode://d0a75f2f1abe31027b7ab7e1816b26835a60e1d1fe253d9390b7b11359940fb886b0859a35f7b13ba5e7c9ae84514cabc8e7c25ea4a272d572fad00e673b0dac@167.179.66.19:30303", "enode://f138ad16b1e0ea777264bda943039ac8afdb328934887ed690844281c9104f39c4f4ef937c68003fb7a71ca570529b35a34adde9ad31c74629e6272e0b994360@47.74.67.68:32343"]
+BootstrapNodes = ["enode://d0a75f2f1abe31027b7ab7e1816b26835a60e1d1fe253d9390b7b11359940fb886b0859a35f7b13ba5e7c9ae84514cabc8e7c25ea4a272d572fad00e673b0dac@167.179.66.19:30303", "enode://50e404539c343d1ceb1acefd98ecdc3eff6edbf480cdbabe58e981352914b73ec721dfe42f6e018d4f077b79989e69576240921c5912a29b19bb69ea82640f92@47.252.2.33:30303"]
+BootstrapNodesV5 = ["enode://d0a75f2f1abe31027b7ab7e1816b26835a60e1d1fe253d9390b7b11359940fb886b0859a35f7b13ba5e7c9ae84514cabc8e7c25ea4a272d572fad00e673b0dac@167.179.66.19:30303", "enode://50e404539c343d1ceb1acefd98ecdc3eff6edbf480cdbabe58e981352914b73ec721dfe42f6e018d4f077b79989e69576240921c5912a29b19bb69ea82640f92@47.252.2.33:30303"]
 StaticNodes = []
 TrustedNodes = []
-ListenAddr = ":30304"
+ListenAddr = ":30303"
 EnableMsgEvents = false
 
 [Node.HTTPTimeouts]
