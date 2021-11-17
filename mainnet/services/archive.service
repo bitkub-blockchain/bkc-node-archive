@@ -1,0 +1,16 @@
+[Unit]
+Description=Geth Archive Node
+After=network.target auditd.service
+Wants=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/geth --identity proen-bkc-mainnet-archive-node-<NAME> --ethstats "proen-bkc-mainnet-<NAME>:helloWorld@10.0.0.95:3000" --config /bkc-node/mainnet/config.toml --cache 4048 --gcmode archive --syncmode full
+User=root
+Group=root
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
+Alias=geth.service

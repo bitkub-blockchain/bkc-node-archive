@@ -1,0 +1,16 @@
+[Unit]
+Description=Geth Bootnode
+After=network.target auditd.service
+Wants=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/geth --identity proen-bkc-mainnet-bootnode-<NAME> --ethstats "proen-bkc-mainnet-bootnode-<NAME>:helloWorld@10.104.4.230" --config /bkc-node/mainnet/config.toml --nodekey /bkc-node/mainnet/bootnode.key --v5disc --nodiscover --syncmode snap 
+User=root
+Group=root
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+Alias=geth.service
