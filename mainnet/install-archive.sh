@@ -17,6 +17,6 @@ sed -i "s/<NAME>/$1/g" /etc/systemd/system/geth.service;
 geth --datadir /bkc-node/mainnet/data init /bkc-node/mainnet/genesis.json
 
 systemctl daemon-reload
-systemctl start geth
+systemctl restart geth
 
 journalctl -u geth -f
