@@ -9,7 +9,7 @@ chown -R $USER /bkc-node
 
 curl https://raw.githubusercontent.com/bitkub-blockchain/bkc-node/proen/mainnet/config.toml --output /bkc-node/mainnet/config.toml
 curl https://raw.githubusercontent.com/bitkub-blockchain/bkc-node/proen/mainnet/genesis.json --output /bkc-node/mainnet/genesis.json
-curl https://raw.githubusercontent.com/bitkub-blockchain/bkc-node/proen/mainnet/services/archive.service --output /etc/systemd/system/geth.service
+curl https://raw.githubusercontent.com/bitkub-blockchain/bkc-node/proen/mainnet/services/full.service --output /etc/systemd/system/geth.service
 
 sed -i "s/<NAME>/$1/g" /etc/systemd/system/geth.service;
 
