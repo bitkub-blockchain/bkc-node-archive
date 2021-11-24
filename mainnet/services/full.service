@@ -1,3 +1,4 @@
+  GNU nano 4.8                                                                          /etc/systemd/system/geth.service                                                                                    
 [Unit]
 Description=Geth Archive Node
 After=network.target auditd.service
@@ -5,7 +6,8 @@ Wants=network.target
 
 [Service]
 WorkingDirectory=/root
-ExecStart=/usr/bin/geth --identity <NAME> --ethstats "<NAME>:helloWorld@10.104.4.230" --config /bkc-node/mainnet/config.toml --cache 4048
+ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment NODE_NAME=$(hostname);/usr/bin/bootnode -genkey /bkc-node/mainnet/data/geth/nodekey"
+ExecStart=/usr/bin/geth --identity full-node-$NODE_NAME --ethstats "full-node-${NODE_NAME}:helloWorld@10.104.4.230"  --config /bkc-node/mainnet/config.toml  --cache 4048
 User=root
 Group=root
 Restart=always
