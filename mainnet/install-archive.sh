@@ -2,10 +2,9 @@
 
 add-apt-repository -y ppa:ethereum/ethereum
 apt-get update -y
-apt-get install ethereum git -y
+apt-get install ethereum -y
 
 mkdir -p /bkc-node/mainnet
-chown -R $USER /bkc-node
 
 curl https://raw.githubusercontent.com/bitkub-blockchain/bkc-node/proen/mainnet/config.toml --output /bkc-node/mainnet/config.toml
 curl https://raw.githubusercontent.com/bitkub-blockchain/bkc-node/proen/mainnet/genesis.json --output /bkc-node/mainnet/genesis.json
