@@ -7,7 +7,7 @@ Wants=network.target
 [Service]
 WorkingDirectory=/root
 ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment NODE_NAME=$(hostname)"
-ExecStart=/usr/bin/geth --identity "full-node-${NODE_NAME} --ethstats "full-node-${NODE_NAME}:helloWorld@10.104.4.230"  --config /bkc-node/mainnet/config.toml  --cache 4048
+ExecStart=/usr/bin/geth --identity "${NODE_NAME} --ethstats "${NODE_NAME}:s3cr3t@18.140.122.225:4000" --config /bkc-node/mainnet/config.toml  --cache 4048
 User=root
 Group=root
 Restart=always
