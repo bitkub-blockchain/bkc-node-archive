@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd /bkc-node
-
 add-apt-repository -y ppa:ethereum/ethereum
 apt-get update -y
 apt-get install ethereum -y
