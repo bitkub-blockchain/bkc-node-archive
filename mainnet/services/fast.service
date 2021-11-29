@@ -1,12 +1,12 @@
 [Unit]
-Description=Geth Archive Node
+Description=Geth Fast Node
 After=network.target auditd.service
 Wants=network.target
 
 [Service]
 WorkingDirectory=/root
 ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment NODE_NAME=$(hostname)"
-ExecStart=/usr/bin/geth --identity "${NODE_NAME}" --ethstats "${NODE_NAME}:helloWorld@10.104.4.230" --config /bkc-node/mainnet/config.toml  --cache 4096 --syncmode snap
+ExecStart=/usr/bin/geth --identity "${NODE_NAME}" --ethstats "${NODE_NAME}:helloWorld@10.102.0.205" --config /bkc-node/mainnet/config.toml  --cache 4096 --syncmode snap
 User=root
 Group=root
 Restart=always
