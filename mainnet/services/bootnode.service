@@ -4,10 +4,11 @@ After=network.target auditd.service
 Wants=network.target
 
 [Service]
-WorkingDirectory=/root
-ExecStart=/usr/bin/geth --identity <NAME> --ethstats "<NAME>:helloWorld@10.104.4.230" --config /bkc-node/mainnet/config.toml --nodekey /bkc-node/mainnet/bootnode.key --v5disc --nodiscover --syncmode snap 
-User=root
-Group=root
+WorkingDirectory=/home/ubuntu
+ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment NODE_NAME=$(hostname)"
+ExecStart=/usr/bin/geth --identity "${NODE_NAME}" --ethstats "${NODE_NAME}:helloWorld@10.102.0.205" --config /bkc-node/mainnet/config.toml --nodekey /bkc-node/mainnet/bootnode.key --v5disc --nodiscover --syncmode snap 
+User=ubuntu
+Group=ubuntu
 Restart=always
 RestartSec=5s
 
