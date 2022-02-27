@@ -62,7 +62,7 @@ HTTPHost = "0.0.0.0"
 HTTPPort = 8545
 HTTPCors = ["*"]
 HTTPVirtualHosts = ["*"]
-HTTPModules = ["eth", "net", "web3"]
+HTTPModules = ["eth", "net", "web3", "txpool"]
 
 [Node.P2P]
 MaxPeers = 128
